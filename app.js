@@ -16,6 +16,7 @@ dotenv.config();
 const { DB_HOST, DB_SERVER, APP_PORT = 4700 } = process.env;
 
 const citizenRouter = require("./routes/citizen");
+const applicationRouter = require("./routes/application");
 
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/citizen", citizenRouter);
+app.use("/application", applicationRouter);
 // app.use("/api/order", orderRouter);
 
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

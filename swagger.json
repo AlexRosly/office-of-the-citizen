@@ -1,0 +1,515 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.1",
+    "title": "office-of-the-citizen",
+    "description": "Showing swagger-ui-express",
+    "licence": { "name": "Your Price Bookig", "URL": "GOIT.com" }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [
+    { "url": "https://blog-yourpricebooking-backend.onrender.com" },
+    { "url": "http://localhost:4500" }
+  ],
+  "tags": [{ "name": "Post", "description": "Post endpoints" }],
+  "paths": {
+    "post/getAllPosts?{page}&{limit}": {
+      "get": {
+        "tags": ["Post"],
+        "summary": "Get All Post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "require page and limit",
+            "page": "1",
+            "limit": "15",
+            "required": "true",
+            "type": "string",
+            "description": "Must be specified",
+            "example": "page=1&limit=5"
+          }
+        ],
+        "requestBody": {
+          "description": "Get All Post",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetAllPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllPostResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "posts don't found in DB",
+            "content": {}
+          }
+        }
+      }
+    },
+    "post/getPostByArticleUrl": {
+      "get": {
+        "tags": ["Post"],
+        "summary": "Get post by article url",
+        "parameters": [{ "articleUrl": "string" }],
+        "requestBody": {
+          "description": "Get post by article url",
+          "required": "true",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthorizationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizationResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "posts with url don't found in DB",
+            "content": {}
+          }
+        }
+      }
+    },
+    "post/addPost": {
+      "post": {
+        "tags": ["Post"],
+        "summary": "Add new post",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "404": {
+            "description": "post don't created",
+            "content": {}
+          },
+          "405": {
+            "description": " http method not allowed",
+            "content": {}
+          },
+
+          "409": {
+            "description": "article with url are exist in DB",
+            "conten": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetAllPostResponse": {
+        "type": "object",
+        "required": [
+          "title",
+          "author",
+          "imageUrl",
+          "description",
+          "articleUrl",
+          "markup"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "post id",
+            "example": "654408d3290c3695d2496b4a"
+          },
+          "title": {
+            "type": "string",
+            "description": "post title",
+            "example": "YourPriceBooking"
+          },
+          "author": {
+            "type": "string",
+            "description": "post author",
+            "example": "Slawa"
+          },
+          "imageUrl": {
+            "type": "array",
+            "description": "post images",
+            "example": [
+              "https://mongoosejs.com/docs/schematypes.html#dates",
+              "https://mongoosejs.com/docs/schematypes.html#dates",
+              "https://mongoosejs.com/docs/schematypes.html#dates"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "post description",
+            "example": "Two very common methods of fortune telling are reading coffee grounds or tea leaves."
+          },
+          "articleUrl": {
+            "type": "string",
+            "description": "article Url",
+            "example": "https://mongoosejs.com/docs/schematypes.html#dates."
+          }
+        }
+      },
+      "GetAllPostRequest": {
+        "type": "string",
+        "parameters": {
+          "in": "path",
+          "schema": {
+            "page": {
+              "type": "integer",
+              "description": "pages number",
+              "example": "1"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "limit post on page",
+              "example": "5"
+            }
+          }
+        }
+      },
+      "AuthorizationRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "123456"
+          }
+        }
+      },
+      "AuthorizationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "token": { "type": "string", "description": "User's token" },
+          "balance": { "type": "integer", "description": "User's balance" }
+        }
+      },
+      "CurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "token": { "type": "string", "description": "User's token" },
+          "balance": { "type": "integer", "description": "User's balance" }
+        }
+      },
+      "CurrentUserBalanceResponse": {
+        "type": "object",
+        "properties": {
+          "balance": { "type": "integer", "description": "User's balance" }
+        }
+      },
+      "UpdateCurrentUserBalanceRequest": {
+        "type": "object",
+        "required": ["balance"],
+        "properties": {
+          "email": {
+            "type": "integfer",
+            "description": "User's balance"
+          }
+        }
+      },
+      "UpdateCurrentUserBalanceResponse": {
+        "type": "object",
+        "properties": {
+          "balance": { "type": "integer", "description": "User's balance" }
+        }
+      },
+      "AddigTransactionRequest": {
+        "type": "object",
+        "required": [
+          "type",
+          "day",
+          "month",
+          "year",
+          "description",
+          "category",
+          "sum",
+          "owner"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of transaction",
+            "enum": ["income", "costs"]
+          },
+          "day": {
+            "type": "string",
+            "description": "Day of transaction",
+            "example": "01"
+          },
+          "month": {
+            "type": "string",
+            "description": "Month of transaction",
+            "example": "01"
+          },
+          "year": {
+            "type": "string",
+            "description": "Year of transaction",
+            "example": "2022"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of transaction",
+            "example": "Свинина"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of transaction",
+            "enum": [
+              "salary",
+              "other income",
+              "products",
+              "alcohol",
+              "fun",
+              "health",
+              "transport",
+              "home",
+              "technic",
+              "utility and phone",
+              "sport and hobby",
+              "education",
+              "other"
+            ]
+          },
+          "sum": {
+            "type": "integer",
+            "description": "Count of transaction",
+            "example": "200"
+          },
+          "owner": {
+            "type": "ObjectId",
+            "description": "Id of transaction's owner",
+            "example": "1q24eei1746e7"
+          }
+        }
+      },
+      "AddigTransactionResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of transaction",
+            "enum": ["income", "costs"]
+          },
+          "day": {
+            "type": "string",
+            "description": "Day of transaction",
+            "example": "01"
+          },
+          "month": {
+            "type": "string",
+            "description": "Month of transaction",
+            "example": "01"
+          },
+          "year": {
+            "type": "string",
+            "description": "Year of transaction",
+            "example": "2022"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of transaction",
+            "example": "Свинина"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of transaction",
+            "enum": [
+              "salary",
+              "other income",
+              "products",
+              "alcohol",
+              "fun",
+              "health",
+              "transport",
+              "home",
+              "technic",
+              "utility and phone",
+              "sport and hobby",
+              "education",
+              "other"
+            ]
+          },
+          "sum": {
+            "type": "integer",
+            "description": "Count of transaction",
+            "example": "200"
+          },
+          "owner": {
+            "type": "ObjectId",
+            "description": "Id of transaction's owner",
+            "example": "1q24eei1746e7"
+          },
+          "showResultBalance": {
+            "type": "integer",
+            "description": "Updated balance of owner",
+            "example": "220"
+          }
+        }
+      },
+      "DeletingTransactionResponse": {
+        "type": "string",
+        "content": "transaction deleted"
+      },
+      "GetByMonthResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of transaction",
+            "enum": ["income", "costs"]
+          },
+          "day": {
+            "type": "string",
+            "description": "Day of transaction",
+            "example": "01"
+          },
+          "month": {
+            "type": "string",
+            "description": "Month of transaction",
+            "example": "01"
+          },
+          "year": {
+            "type": "string",
+            "description": "Year of transaction",
+            "example": "2022"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of transaction",
+            "example": "Свинина"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of transaction",
+            "enum": [
+              "salary",
+              "other income",
+              "products",
+              "alcohol",
+              "fun",
+              "health",
+              "transport",
+              "home",
+              "technic",
+              "utility and phone",
+              "sport and hobby",
+              "education",
+              "other"
+            ]
+          },
+          "sum": {
+            "type": "integer",
+            "description": "Count of transaction",
+            "example": "200"
+          },
+          "owner": {
+            "type": "ObjectId",
+            "description": "Id of transaction's owner",
+            "example": "1q24eei1746e7"
+          }
+        }
+      },
+      "GetByTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of transaction",
+            "enum": ["income", "costs"]
+          },
+          "day": {
+            "type": "string",
+            "description": "Day of transaction",
+            "example": "01"
+          },
+          "month": {
+            "type": "string",
+            "description": "Month of transaction",
+            "example": "01"
+          },
+          "year": {
+            "type": "string",
+            "description": "Year of transaction",
+            "example": "2022"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of transaction",
+            "example": "Свинина"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of transaction",
+            "enum": [
+              "salary",
+              "other income",
+              "products",
+              "alcohol",
+              "fun",
+              "health",
+              "transport",
+              "home",
+              "technic",
+              "utility and phone",
+              "sport and hobby",
+              "education",
+              "other"
+            ]
+          },
+          "sum": {
+            "type": "integer",
+            "description": "Count of transaction",
+            "example": "200"
+          },
+          "owner": {
+            "type": "ObjectId",
+            "description": "Id of transaction's owner",
+            "example": "1q24eei1746e7"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

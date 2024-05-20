@@ -8,9 +8,6 @@ const {
 } = require("../middelwares");
 const router = express.Router();
 
-//get all post
-// router.get("/get-all", ctrlWrapper(ctrl.getAll));
-
 //logOut
 router.get("/log-out", authCitizen, ctrlWrapper(ctrl.logOut));
 
@@ -18,20 +15,14 @@ router.get("/log-out", authCitizen, ctrlWrapper(ctrl.logOut));
 router.post("/get-secret-code", ctrlWrapper(createRegistrationCode));
 
 //create code and send to email for sign in
-router.patch(
-  "/check-citizen",
-  //   validation(joiGetCodeSchema),
-  ctrlWrapper(createSingInCode)
-);
+router.patch("/check-citizen", ctrlWrapper(createSingInCode));
 
 //sign in
-router.patch(
-  "/citizen-sign-in",
-  //   validation(joiSignInSchema),
-  ctrlWrapper(ctrl.singIn)
-);
+router.patch("/citizen-sign-in", ctrlWrapper(ctrl.singIn));
 
 //create new citizen
 router.post("/create-new-citizen", ctrlWrapper(ctrl.createNewCitizen));
+
+router.delete("/remove-citizen", authCitizen, ctrlWrapper(ctrl.removeCitizen));
 
 module.exports = router;

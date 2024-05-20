@@ -11,7 +11,7 @@ const nodemailerConfig = {
   port: 465,
   secure: true,
   auth: {
-    user: "yourpricebooking@gmail.com", // from send email
+    user: "24serpnya.com.ua@gmail.com", // from send email
     pass: NODEMAILER_PASS,
   },
 };
