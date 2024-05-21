@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.1",
     "title": "office-of-the-citizen",
-    "description": "Showing swagger-ui-express",
+    "description": "Showing API for office of the citizen ",
     "licence": {
       "name": "Office of the Citizen",
       "URL": "https://office-of-the-citizen.onrender.com"
