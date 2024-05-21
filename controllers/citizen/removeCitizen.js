@@ -16,14 +16,13 @@ const removeCitizen = async (req, res) => {
   }
 
   const removeCitizen = await Citizen.deleteOne({ _id: id });
-  console.log({ removeCitizen });
 
   if (!removeCitizen) {
     return res
-      .status(404)
+      .status(435)
       .json({
         status: "error",
-        code: 404,
+        code: 435,
         message: "Citizen account doesn't remove, try later",
       })
       .end();

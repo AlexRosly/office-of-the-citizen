@@ -29,7 +29,7 @@ const houseConstruction = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        houseConstruction: updateApp.houseConstruction,
       })
       .end();
   } else {
@@ -52,7 +52,7 @@ const houseConstruction = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        houseConstruction: createApp.houseConstruction,
       })
       .end();
   }

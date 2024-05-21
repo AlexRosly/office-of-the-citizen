@@ -30,7 +30,7 @@ const consularServicesAbroad = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        consularServicesAbroad: updateApp.consularServicesAbroad,
       })
       .end();
   } else {
@@ -54,7 +54,7 @@ const consularServicesAbroad = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        consularServicesAbroad: createApp.consularServicesAbroad,
       })
       .end();
   }

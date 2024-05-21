@@ -30,7 +30,7 @@ const goAbroad = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        goAbroad: updateApp.goAbroad,
       })
       .end();
   } else {
@@ -54,7 +54,7 @@ const goAbroad = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        goAbroad: createApp.goAbroad,
       })
       .end();
   }

@@ -29,7 +29,7 @@ const cottageConstruction = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        cottageConstruction: updateApp.cottageConstruction,
       })
       .end();
   } else {
@@ -52,7 +52,7 @@ const cottageConstruction = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        cottageConstruction: createApp.cottageConstruction,
       })
       .end();
   }

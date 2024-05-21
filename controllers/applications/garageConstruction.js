@@ -30,7 +30,7 @@ const garageConstruction = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        garageConstruction: updateApp.garageConstruction,
       })
       .end();
   } else {
@@ -54,7 +54,7 @@ const garageConstruction = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        garageConstruction: createApp.garageConstruction,
       })
       .end();
   }

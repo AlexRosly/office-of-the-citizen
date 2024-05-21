@@ -43,13 +43,9 @@ const createRegistrationCode = async (req, res) => {
       </body>
       </html>`,
   };
-  console.log("work");
-  console.log({ email });
   const findCandidate = await Candidate.find({ email });
-  console.log({ findCandidate });
-  console.log("work1");
 
-  if (findCandidate) {
+  if (findCandidate.length > 0) {
     const filter = { email };
     const update = { secretCode, createdCode, validCode };
     await Candidate.findOneAndUpdate(filter, update, {
@@ -60,6 +56,7 @@ const createRegistrationCode = async (req, res) => {
       .sendMail(mail)
       .then(() =>
         res.json({
+          code: 201,
           status: "success",
           message: `Confirmation code sent to ${email}`,
         })
@@ -75,11 +72,11 @@ const createRegistrationCode = async (req, res) => {
       createdCode,
       validCode,
     });
-
     transporter
       .sendMail(mail)
       .then(() =>
         res.json({
+          code: 201,
           status: "success",
           message: `Confirmation code sent to ${email}`,
         })

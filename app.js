@@ -11,8 +11,8 @@ dotenv.config();
 // Database Name
 // const dbName = "Blog-YourPriceBooking";
 
-// const swaggerUi = require("swagger-ui-express");
-// const swaggerDocument = require("./swagger.json");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 const { DB_HOST, DB_SERVER, APP_PORT = 4700 } = process.env;
 
 const citizenRouter = require("./routes/citizen");
@@ -27,9 +27,8 @@ app.use(express.json());
 
 app.use("/citizen", citizenRouter);
 app.use("/application", applicationRouter);
-// app.use("/api/order", orderRouter);
 
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

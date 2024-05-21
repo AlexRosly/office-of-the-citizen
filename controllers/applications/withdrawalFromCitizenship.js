@@ -30,7 +30,7 @@ const withdrawalFromCitizenship = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        withdrawalFromCitizenship: updateApp.withdrawalFromCitizenship,
       })
       .end();
   } else {
@@ -54,7 +54,7 @@ const withdrawalFromCitizenship = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        withdrawalFromCitizenship: createApp.withdrawalFromCitizenship,
       })
       .end();
   }

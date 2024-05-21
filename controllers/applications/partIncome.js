@@ -30,7 +30,7 @@ const partIncome = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        partIncome: updateApp.partIncome,
       })
       .end();
   } else {
@@ -54,7 +54,7 @@ const partIncome = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        partIncome: createApp.partIncome,
       })
       .end();
   }

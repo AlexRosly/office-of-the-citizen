@@ -30,7 +30,7 @@ const landForFarming = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        updateApp,
+        landForFarming: updateApp.landForFarming,
       })
       .end();
   } else {
@@ -54,7 +54,7 @@ const landForFarming = async (req, res) => {
       .json({
         status: "success",
         code: 200,
-        createApp,
+        landForFarming: createApp.landForFarming,
       })
       .end();
   }

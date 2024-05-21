@@ -21,7 +21,7 @@ const signIn = async (req, res) => {
       .json({
         status: "error",
         code: 409,
-        message: `Email ${email} not found`,
+        message: `This email ${email} does not exist in DB `,
       })
       .end();
   }
@@ -63,6 +63,7 @@ const signIn = async (req, res) => {
         lastName: result.lastName,
         middleName: result.middleName,
         email: result.email,
+        status: result.status,
         token: result.token,
       },
     })

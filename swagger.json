@@ -4,116 +4,551 @@
     "version": "1.0.1",
     "title": "office-of-the-citizen",
     "description": "Showing swagger-ui-express",
-    "licence": { "name": "Your Price Bookig", "URL": "GOIT.com" }
+    "licence": {
+      "name": "Office of the Citizen",
+      "URL": "https://office-of-the-citizen.onrender.com"
+    }
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "servers": [
-    { "url": "https://blog-yourpricebooking-backend.onrender.com" },
-    { "url": "http://localhost:4500" }
+    { "url": "https://office-of-the-citizen.onrender.com" },
+    { "url": "http://localhost:4700" }
   ],
-  "tags": [{ "name": "Post", "description": "Post endpoints" }],
+  "tags": [
+    {
+      "name": "Citizen",
+      "description": "Endpoints for singUp, singIn, logOut and delete citizen's account"
+    },
+    {
+      "name": "Application",
+      "description": "Endpoints for fixed citizen's choise"
+    }
+  ],
   "paths": {
-    "post/getAllPosts?{page}&{limit}": {
-      "get": {
-        "tags": ["Post"],
-        "summary": "Get All Post",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "require page and limit",
-            "page": "1",
-            "limit": "15",
-            "required": "true",
-            "type": "string",
-            "description": "Must be specified",
-            "example": "page=1&limit=5"
-          }
-        ],
+    "/citizen/get-secret-code": {
+      "post": {
+        "tags": ["Citizen"],
+        "summary": "Get secret code for singUp",
         "requestBody": {
-          "description": "Get All Post",
+          "required": "true",
+          "description": "Get secret code",
           "content": {
             "applcation/json": {
               "schema": {
-                "$ref": "#/components/schemas/GetAllPostRequest"
+                "$ref": "#/components/schemas/GetSecretCodeRequest"
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Successful operation",
+          "201": {
+            "description": "success",
             "content": {
               "applcation/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetAllPostResponse"
+                  "$ref": "#/components/schemas/GetSecretCodeResponse"
                 }
               }
             }
           },
-          "404": {
-            "description": "posts don't found in DB",
+          "432": {
+            "description": "This email ${email} is already existed in Citizen collection",
             "content": {}
           }
         }
       }
     },
-    "post/getPostByArticleUrl": {
-      "get": {
-        "tags": ["Post"],
-        "summary": "Get post by article url",
-        "parameters": [{ "articleUrl": "string" }],
+    "/citizen/create-new-citizen": {
+      "post": {
+        "tags": ["Citizen"],
+        "summary": "sing Up citizen",
         "requestBody": {
-          "description": "Get post by article url",
+          "description": "create new account of the citizen",
           "required": "true",
           "content": {
             "applcation/json": {
               "schema": {
-                "$ref": "#/components/schemas/AuthorizationRequest"
+                "$ref": "#/components/schemas/CreateNewCitizenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateNewCitizenResponse"
+                }
+              }
+            }
+          },
+          "435": {
+            "description": "secret code is wrong",
+            "content": {}
+          },
+          "436": {
+            "description": "secret code is invalid",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/citizen/check-citizen": {
+      "patch": {
+        "tags": ["Citizen"],
+        "summary": "Get secret code on email for singIn",
+        "requestBody": {
+          "required": "true",
+          "description": "Get secret code",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSecretCodeSingInRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSecretCodeSingInResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "This email does not exist in Users collection",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/citizen/citizen-sign-in": {
+      "patch": {
+        "tags": ["Citizen"],
+        "summary": "citizen sing in",
+        "requestBody": {
+          "required": "true",
+          "description": "Sing in",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SingInCitizenRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Successful operation",
+            "description": "success",
             "content": {
               "applcation/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AuthorizationResponse"
+                  "$ref": "#/components/schemas/GetSecretCodeSingInResponse"
                 }
               }
             }
           },
           "409": {
-            "description": "posts with url don't found in DB",
+            "description": "This email does not exist in DB",
+            "content": {}
+          },
+          "435": {
+            "description": "Code is wrong",
+            "content": {}
+          },
+          "436": {
+            "description": "Code is invalid",
             "content": {}
           }
         }
       }
     },
-    "post/addPost": {
-      "post": {
-        "tags": ["Post"],
-        "summary": "Add new post",
+    "/citizen/remove-citizen": {
+      "delete": {
+        "tags": ["Citizen"],
+        "summary": "delete citizen account",
         "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "delete citizen's account",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCitizenRequest"
+              }
+            }
+          }
+        },
         "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {}
+          "204": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteCitizenResponse"
+                }
+              }
+            }
           },
           "404": {
-            "description": "post don't created",
+            "description": "Citizen App doesn't remove, try later",
             "content": {}
           },
-          "405": {
-            "description": " http method not allowed",
+          "435": {
+            "description": "Citizen account doesn't remove, try later",
             "content": {}
+          }
+        }
+      }
+    },
+    "/citizen/log-out": {
+      "get": {
+        "tags": ["Citizen"],
+        "summary": "logOut citizen from account",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "logOut citizen from account",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/logOutCitizenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/logOutCitizenResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/application/application-for-house-construction": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about land for house construction",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Sing in",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/houseConstructionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/houseConstructionResponse"
+                }
+              }
+            }
           },
-
-          "409": {
-            "description": "article with url are exist in DB",
-            "conten": {}
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-cottage-construction": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about land for cottage construction",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Sing in",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cottageConstructionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cottageConstructionResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-garage-construction": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about land for garage construction",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Sing in",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/garageConstructionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/garageConstructionResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-land-for-gardening": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about land for gardening",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Sing in",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/landForGardeningRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/landForGardeningResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-land-for-farming": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about land for farming",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Sing in",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/landForFarmingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/landForFarmingResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-part-income": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about part income",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "part income",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/partIncomeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/partIncomeResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-consular-services-abroad": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about consular services abroad",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "consular services abroad",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/consularServicesAbroadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/consularServicesAbroadResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-withdrawal-from-citizenship": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about withdrawal from citizenship",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "withdrawal from citizenship",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/withdrawalFromCitizenshipRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/withdrawalFromCitizenshipResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/application/application-for-go-abroad": {
+      "post": {
+        "tags": ["Application"],
+        "summary": "fixed citizen's choise about go abroad",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "go abroad",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/goAbroadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/goAbroadResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "The application was not accepted",
+            "content": {}
           }
         }
       }
@@ -121,394 +556,553 @@
   },
   "components": {
     "schemas": {
-      "GetAllPostResponse": {
+      "GetSecretCodeRequest": {
         "type": "object",
-        "required": [
-          "title",
-          "author",
-          "imageUrl",
-          "description",
-          "articleUrl",
-          "markup"
-        ],
+        "required": ["firstName", "lastName", "middleName", "email"],
         "properties": {
-          "id": {
+          "firstName": {
             "type": "string",
-            "description": "post id",
-            "example": "654408d3290c3695d2496b4a"
+            "description": "first name",
+            "example": "Ivan"
           },
-          "title": {
+          "lastName": {
             "type": "string",
-            "description": "post title",
-            "example": "YourPriceBooking"
+            "description": "surname",
+            "example": "Ivanov"
           },
-          "author": {
+          "middleName": {
             "type": "string",
-            "description": "post author",
-            "example": "Slawa"
+            "description": "middle name",
+            "example": "Ivanovich"
           },
-          "imageUrl": {
-            "type": "array",
-            "description": "post images",
-            "example": [
-              "https://mongoosejs.com/docs/schematypes.html#dates",
-              "https://mongoosejs.com/docs/schematypes.html#dates",
-              "https://mongoosejs.com/docs/schematypes.html#dates"
-            ]
-          },
-          "description": {
-            "type": "string",
-            "description": "post description",
-            "example": "Two very common methods of fortune telling are reading coffee grounds or tea leaves."
-          },
-          "articleUrl": {
-            "type": "string",
-            "description": "article Url",
-            "example": "https://mongoosejs.com/docs/schematypes.html#dates."
-          }
-        }
-      },
-      "GetAllPostRequest": {
-        "type": "string",
-        "parameters": {
-          "in": "path",
-          "schema": {
-            "page": {
-              "type": "integer",
-              "description": "pages number",
-              "example": "1"
-            },
-            "limit": {
-              "type": "integer",
-              "description": "limit post on page",
-              "example": "5"
-            }
-          }
-        }
-      },
-      "AuthorizationRequest": {
-        "type": "object",
-        "required": ["email", "password"],
-        "properties": {
           "email": {
             "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "password": {
+            "description": "citizen email",
+            "format": "email",
+            "example": "neloxom159@neixos.com"
+          }
+        }
+      },
+      "GetSecretCodeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
             "type": "string",
-            "description": "User's password",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "description": "message",
+            "example": "Confirmation code sent to himosa5997@qiradio.com"
+          }
+        }
+      },
+      "CreateNewCitizenRequest": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "middleName",
+          "email",
+          "secretCode"
+        ],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "first name",
+            "example": "Ivan"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "surname",
+            "example": "Ivanov"
+          },
+          "middleName": {
+            "type": "string",
+            "description": "middle name",
+            "example": "Ivanovich"
+          },
+          "email": {
+            "type": "string",
+            "description": "citizen email",
+            "format": "email",
+            "example": "neloxom159@neixos.com"
+          },
+          "secretCode": {
+            "type": "number or string",
+            "description": "secret code was send to citizen email",
             "example": "123456"
           }
         }
       },
-      "AuthorizationResponse": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "token": { "type": "string", "description": "User's token" },
-          "balance": { "type": "integer", "description": "User's balance" }
-        }
-      },
-      "CurrentUserResponse": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          },
-          "token": { "type": "string", "description": "User's token" },
-          "balance": { "type": "integer", "description": "User's balance" }
-        }
-      },
-      "CurrentUserBalanceResponse": {
-        "type": "object",
-        "properties": {
-          "balance": { "type": "integer", "description": "User's balance" }
-        }
-      },
-      "UpdateCurrentUserBalanceRequest": {
-        "type": "object",
-        "required": ["balance"],
-        "properties": {
-          "email": {
-            "type": "integfer",
-            "description": "User's balance"
-          }
-        }
-      },
-      "UpdateCurrentUserBalanceResponse": {
-        "type": "object",
-        "properties": {
-          "balance": { "type": "integer", "description": "User's balance" }
-        }
-      },
-      "AddigTransactionRequest": {
+      "CreateNewCitizenResponse": {
         "type": "object",
         "required": [
-          "type",
-          "day",
-          "month",
-          "year",
-          "description",
-          "category",
-          "sum",
-          "owner"
+          "firstName",
+          "lastName",
+          "middleName",
+          "email",
+          "secretCode"
         ],
         "properties": {
-          "type": {
+          "_id": {
             "type": "string",
-            "description": "Type of transaction",
-            "enum": ["income", "costs"]
+            "description": "citizen id",
+            "example": "664c6c7311dad8cf6fbf5beb"
           },
-          "day": {
+          "firstName": {
             "type": "string",
-            "description": "Day of transaction",
-            "example": "01"
+            "description": "first name",
+            "example": "Ivan"
           },
-          "month": {
+          "lastName": {
             "type": "string",
-            "description": "Month of transaction",
-            "example": "01"
+            "description": "surname",
+            "example": "Ivanov"
           },
-          "year": {
+          "middleName": {
             "type": "string",
-            "description": "Year of transaction",
-            "example": "2022"
+            "description": "middle name",
+            "example": "Ivanovich"
           },
-          "description": {
+          "email": {
             "type": "string",
-            "description": "Description of transaction",
-            "example": "Свинина"
+            "description": "citizen email",
+            "format": "email",
+            "example": "neloxom159@neixos.com"
           },
-          "category": {
+          "secretCode": {
+            "type": "number",
+            "description": "secret code was send to citizen email",
+            "example": "123456"
+          },
+          "status": {
             "type": "string",
-            "description": "Category of transaction",
-            "enum": [
-              "salary",
-              "other income",
-              "products",
-              "alcohol",
-              "fun",
-              "health",
-              "transport",
-              "home",
-              "technic",
-              "utility and phone",
-              "sport and hobby",
-              "education",
-              "other"
-            ]
+            "description": "status of the citizen",
+            "example": "registered"
           },
-          "sum": {
-            "type": "integer",
-            "description": "Count of transaction",
-            "example": "200"
-          },
-          "owner": {
-            "type": "ObjectId",
-            "description": "Id of transaction's owner",
-            "example": "1q24eei1746e7"
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "GetSecretCodeSingInRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "citizen email",
+            "format": "email",
+            "example": "neloxom159@neixos.com"
           }
         }
       },
-      "AddigTransactionResponse": {
+      "GetSecretCodeSingInResponse": {
         "type": "object",
         "properties": {
-          "type": {
+          "status": {
             "type": "string",
-            "description": "Type of transaction",
-            "enum": ["income", "costs"]
+            "description": "status of the request",
+            "example": "success"
           },
-          "day": {
+          "message": {
             "type": "string",
-            "description": "Day of transaction",
-            "example": "01"
-          },
-          "month": {
-            "type": "string",
-            "description": "Month of transaction",
-            "example": "01"
-          },
-          "year": {
-            "type": "string",
-            "description": "Year of transaction",
-            "example": "2022"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description of transaction",
-            "example": "Свинина"
-          },
-          "category": {
-            "type": "string",
-            "description": "Category of transaction",
-            "enum": [
-              "salary",
-              "other income",
-              "products",
-              "alcohol",
-              "fun",
-              "health",
-              "transport",
-              "home",
-              "technic",
-              "utility and phone",
-              "sport and hobby",
-              "education",
-              "other"
-            ]
-          },
-          "sum": {
-            "type": "integer",
-            "description": "Count of transaction",
-            "example": "200"
-          },
-          "owner": {
-            "type": "ObjectId",
-            "description": "Id of transaction's owner",
-            "example": "1q24eei1746e7"
-          },
-          "showResultBalance": {
-            "type": "integer",
-            "description": "Updated balance of owner",
-            "example": "220"
+            "description": "message",
+            "example": "Confirmation code sent to himosa5997@qiradio.com"
           }
         }
       },
-      "DeletingTransactionResponse": {
-        "type": "string",
-        "content": "transaction deleted"
+      "SingInCitizenRequest": {
+        "type": "object",
+        "required": ["email", "secretCode"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "citizen email",
+            "format": "email",
+            "example": "neloxom159@neixos.com"
+          },
+          "secretCode": {
+            "type": "number or string",
+            "description": "secret code was send to citizen email",
+            "example": "123456"
+          }
+        }
       },
-      "GetByMonthResponse": {
+      "SingInCitizenResponse": {
+        "type": "object",
+        "required": ["firstName", "lastName", "middleName", "email", "token"],
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "first name",
+            "example": "Ivan"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "surname",
+            "example": "Ivanov"
+          },
+          "middleName": {
+            "type": "string",
+            "description": "middle name",
+            "example": "Ivanovich"
+          },
+          "email": {
+            "type": "string",
+            "description": "citizen email",
+            "format": "email",
+            "example": "neloxom159@neixos.com"
+          },
+          "status": {
+            "type": "string",
+            "description": "status of the citizen",
+            "example": "registered"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "DeleteCitizenRequest": {
         "type": "object",
         "properties": {
-          "type": {
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "DeleteCitizenResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
             "type": "string",
-            "description": "Type of transaction",
-            "enum": ["income", "costs"]
+            "description": "status of the request",
+            "example": "success"
           },
-          "day": {
+          "message": {
             "type": "string",
-            "description": "Day of transaction",
-            "example": "01"
-          },
-          "month": {
-            "type": "string",
-            "description": "Month of transaction",
-            "example": "01"
-          },
-          "year": {
-            "type": "string",
-            "description": "Year of transaction",
-            "example": "2022"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description of transaction",
-            "example": "Свинина"
-          },
-          "category": {
-            "type": "string",
-            "description": "Category of transaction",
-            "enum": [
-              "salary",
-              "other income",
-              "products",
-              "alcohol",
-              "fun",
-              "health",
-              "transport",
-              "home",
-              "technic",
-              "utility and phone",
-              "sport and hobby",
-              "education",
-              "other"
-            ]
-          },
-          "sum": {
-            "type": "integer",
-            "description": "Count of transaction",
-            "example": "200"
-          },
-          "owner": {
-            "type": "ObjectId",
-            "description": "Id of transaction's owner",
-            "example": "1q24eei1746e7"
+            "description": "message",
+            "example": "Citizen account and application has been removed"
           }
         }
       },
-      "GetByTypeResponse": {
+      "logOutCitizenRequest": {
         "type": "object",
         "properties": {
-          "type": {
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "logOutCitizenResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
             "type": "string",
-            "description": "Type of transaction",
-            "enum": ["income", "costs"]
+            "description": "status of the request",
+            "example": "success"
           },
-          "day": {
-            "type": "string",
-            "description": "Day of transaction",
-            "example": "01"
-          },
-          "month": {
-            "type": "string",
-            "description": "Month of transaction",
-            "example": "01"
-          },
-          "year": {
-            "type": "string",
-            "description": "Year of transaction",
-            "example": "2022"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description of transaction",
-            "example": "Свинина"
-          },
-          "category": {
-            "type": "string",
-            "description": "Category of transaction",
-            "enum": [
-              "salary",
-              "other income",
-              "products",
-              "alcohol",
-              "fun",
-              "health",
-              "transport",
-              "home",
-              "technic",
-              "utility and phone",
-              "sport and hobby",
-              "education",
-              "other"
-            ]
-          },
-          "sum": {
-            "type": "integer",
-            "description": "Count of transaction",
-            "example": "200"
-          },
-          "owner": {
-            "type": "ObjectId",
-            "description": "Id of transaction's owner",
-            "example": "1q24eei1746e7"
+          "code": {
+            "type": "number",
+            "description": "code",
+            "example": "204"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "Bearer": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+      },
+      "houseConstructionRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "houseConstructionResponse": {
+        "type": "object",
+        "required": ["fixed", "state"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          }
+        }
+      },
+      "cottageConstructionRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "cottageConstructionResponse": {
+        "type": "object",
+        "required": ["fixed", "state"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          }
+        }
+      },
+      "garageConstructionRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "garageConstructionResponse": {
+        "type": "object",
+        "required": ["fixed", "state"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          }
+        }
+      },
+      "landForGardeningRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "landForGardeningResponse": {
+        "type": "object",
+        "required": ["fixed", "state"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          }
+        }
+      },
+      "landForFarmingRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "landForFarmingResponse": {
+        "type": "object",
+        "required": ["fixed", "state"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "state": {
+            "type": "string",
+            "description": "citizen's state",
+            "example": "Kyiv"
+          }
+        }
+      },
+      "partIncomeRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "partIncomeResponse": {
+        "type": "object",
+        "required": ["fixed"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          }
+        }
+      },
+      "consularServicesAbroadRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "consularServicesAbroadResponse": {
+        "type": "object",
+        "required": ["fixed"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          }
+        }
+      },
+      "withdrawalFromCitizenshipRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "withdrawalFromCitizenshipResponse": {
+        "type": "object",
+        "required": ["fixed"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          }
+        }
+      },
+      "goAbroadRequest": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          },
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "goAbroadResponse": {
+        "type": "object",
+        "required": ["fixed"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "status of the request",
+            "example": "success"
+          },
+          "fixed": {
+            "type": "boolean",
+            "description": "citizen's choise",
+            "example": "true"
+          }
+        }
+      },
+      "securitySchemes": {
+        "Bearer": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
       }
     }
   }
