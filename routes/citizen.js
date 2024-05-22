@@ -11,6 +11,13 @@ const router = express.Router();
 //logOut
 router.get("/log-out", authCitizen, ctrlWrapper(ctrl.logOut));
 
+//get citizen application
+router.get(
+  "/get-citizen-application",
+  authCitizen,
+  ctrlWrapper(ctrl.getCitizenApplication)
+);
+
 //get secret code
 router.post("/get-secret-code", ctrlWrapper(createRegistrationCode));
 

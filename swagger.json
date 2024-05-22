@@ -150,7 +150,7 @@
             "content": {
               "applcation/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetSecretCodeSingInResponse"
+                  "$ref": "#/components/schemas/SingInCitizenResponse"
                 }
               }
             }
@@ -234,6 +234,41 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/citizen/get-citizen-application": {
+      "get": {
+        "tags": ["Citizen"],
+        "summary": "Get citizen applications",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Get citizen applications",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetCitizenAppRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCitizenAppResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "citizen doesn't has any applications",
+            "content": {}
           }
         }
       }
@@ -804,6 +839,131 @@
           }
         }
       },
+      "GetCitizenAppRequest": {
+        "type": "object",
+        "properties": {
+          "token": { "type": "string", "description": "User's token" }
+        }
+      },
+      "GetCitizenAppResponse": {
+        "type": "object",
+        "properties": {
+          "houseConstruction": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              },
+              "state": {
+                "type": "string",
+                "description": "citizen's state",
+                "example": "Kyiv"
+              }
+            }
+          },
+          "cottageConstruction": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "false"
+              },
+              "state": {
+                "type": "string",
+                "description": "State wont be returned, betsause citizen didn't make his choice"
+              }
+            }
+          },
+          "garageConstruction": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              },
+              "state": {
+                "type": "string",
+                "description": "citizen's state",
+                "example": "Kyiv"
+              }
+            }
+          },
+          "landForGardening": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "false"
+              },
+              "state": {
+                "type": "string",
+                "description": "State wont be returned, betsause citizen didn't make his choice"
+              }
+            }
+          },
+          "landForFarming": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              },
+              "state": {
+                "type": "string",
+                "description": "citizen's state",
+                "example": "Kyiv"
+              }
+            }
+          },
+          "partIncome": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              }
+            }
+          },
+          "consularServicesAbroad": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              }
+            }
+          },
+          "withdrawalFromCitizenship": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              }
+            }
+          },
+          "goAbroad": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "bollean",
+                "description": "citizen's choise",
+                "example": "true"
+              }
+            }
+          }
+        }
+      },
+
       "houseConstructionRequest": {
         "type": "object",
         "properties": {
