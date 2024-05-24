@@ -30,6 +30,9 @@ router.patch("/citizen-sign-in", ctrlWrapper(ctrl.singIn));
 //create new citizen
 router.post("/create-new-citizen", ctrlWrapper(ctrl.createNewCitizen));
 
+//update citizen
+router.patch("/citizen-update-date", authCitizen, ctrlWrapper(ctrl.changeName));
+
 router.delete("/remove-citizen", authCitizen, ctrlWrapper(ctrl.removeCitizen));
 
 module.exports = router;
