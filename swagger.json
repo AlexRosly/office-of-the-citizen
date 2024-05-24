@@ -238,6 +238,40 @@
         }
       }
     },
+    "/citizen/citizen-update-date": {
+      "patch": {
+        "tags": ["Citizen"],
+        "summary": "update citizen's date",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "required": "true",
+          "description": "Get secret code",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateCitizenDateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateCitizenDateResponse"
+                }
+              }
+            }
+          },
+          "436": {
+            "description": "citizen data is not updated",
+            "content": {}
+          }
+        }
+      }
+    },
     "/citizen/get-citizen-application": {
       "get": {
         "tags": ["Citizen"],
@@ -963,305 +997,345 @@
           }
         }
       },
-
-      "houseConstructionRequest": {
+      "updateCitizenDateRequest": {
         "type": "object",
+        "required": ["firstName", "lastName", "middleName"],
         "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
+          "firstName": {
             "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+            "description": "first name",
+            "example": "Ivan"
           },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "houseConstructionResponse": {
-        "type": "object",
-        "required": ["fixed", "state"],
-        "properties": {
-          "status": {
+          "lastName": {
             "type": "string",
-            "description": "status of the request",
-            "example": "success"
+            "description": "surname",
+            "example": "Ivanov"
           },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
+          "middleName": {
             "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+            "description": "middle name",
+            "example": "Ivanovich"
           }
         }
       },
-      "cottageConstructionRequest": {
+      "updateCitizenDateResponse": {
         "type": "object",
         "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
+          "firstName": {
             "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+            "description": "first name",
+            "example": "Ivan"
           },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "cottageConstructionResponse": {
-        "type": "object",
-        "required": ["fixed", "state"],
-        "properties": {
-          "status": {
+          "lastName": {
             "type": "string",
-            "description": "status of the request",
-            "example": "success"
+            "description": "surname",
+            "example": "Ivanov"
           },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
+          "middleName": {
             "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+            "description": "middle name",
+            "example": "Ivanovich"
           }
-        }
-      },
-      "garageConstructionRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
-            "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "garageConstructionResponse": {
-        "type": "object",
-        "required": ["fixed", "state"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
-            "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+        },
+        "houseConstructionRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            },
+            "token": { "type": "string", "description": "User's token" }
           }
-        }
-      },
-      "landForGardeningRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
-            "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "landForGardeningResponse": {
-        "type": "object",
-        "required": ["fixed", "state"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
-            "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+        },
+        "houseConstructionResponse": {
+          "type": "object",
+          "required": ["fixed", "state"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            }
           }
-        }
-      },
-      "landForFarmingRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
-            "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "landForFarmingResponse": {
-        "type": "object",
-        "required": ["fixed", "state"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "state": {
-            "type": "string",
-            "description": "citizen's state",
-            "example": "Kyiv"
+        },
+        "cottageConstructionRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            },
+            "token": { "type": "string", "description": "User's token" }
           }
-        }
-      },
-      "partIncomeRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "partIncomeResponse": {
-        "type": "object",
-        "required": ["fixed"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
+        },
+        "cottageConstructionResponse": {
+          "type": "object",
+          "required": ["fixed", "state"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            }
           }
-        }
-      },
-      "consularServicesAbroadRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "consularServicesAbroadResponse": {
-        "type": "object",
-        "required": ["fixed"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
+        },
+        "garageConstructionRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            },
+            "token": { "type": "string", "description": "User's token" }
           }
-        }
-      },
-      "withdrawalFromCitizenshipRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "withdrawalFromCitizenshipResponse": {
-        "type": "object",
-        "required": ["fixed"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
+        },
+        "garageConstructionResponse": {
+          "type": "object",
+          "required": ["fixed", "state"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            }
           }
-        }
-      },
-      "goAbroadRequest": {
-        "type": "object",
-        "properties": {
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
-          },
-          "token": { "type": "string", "description": "User's token" }
-        }
-      },
-      "goAbroadResponse": {
-        "type": "object",
-        "required": ["fixed"],
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "status of the request",
-            "example": "success"
-          },
-          "fixed": {
-            "type": "boolean",
-            "description": "citizen's choise",
-            "example": "true"
+        },
+        "landForGardeningRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            },
+            "token": { "type": "string", "description": "User's token" }
           }
-        }
-      },
-      "securitySchemes": {
-        "Bearer": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
+        },
+        "landForGardeningResponse": {
+          "type": "object",
+          "required": ["fixed", "state"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            }
+          }
+        },
+        "landForFarmingRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            },
+            "token": { "type": "string", "description": "User's token" }
+          }
+        },
+        "landForFarmingResponse": {
+          "type": "object",
+          "required": ["fixed", "state"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "state": {
+              "type": "string",
+              "description": "citizen's state",
+              "example": "Kyiv"
+            }
+          }
+        },
+        "partIncomeRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "token": { "type": "string", "description": "User's token" }
+          }
+        },
+        "partIncomeResponse": {
+          "type": "object",
+          "required": ["fixed"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            }
+          }
+        },
+        "consularServicesAbroadRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "token": { "type": "string", "description": "User's token" }
+          }
+        },
+        "consularServicesAbroadResponse": {
+          "type": "object",
+          "required": ["fixed"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            }
+          }
+        },
+        "withdrawalFromCitizenshipRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "token": { "type": "string", "description": "User's token" }
+          }
+        },
+        "withdrawalFromCitizenshipResponse": {
+          "type": "object",
+          "required": ["fixed"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            }
+          }
+        },
+        "goAbroadRequest": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            },
+            "token": { "type": "string", "description": "User's token" }
+          }
+        },
+        "goAbroadResponse": {
+          "type": "object",
+          "required": ["fixed"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "status of the request",
+              "example": "success"
+            },
+            "fixed": {
+              "type": "boolean",
+              "description": "citizen's choise",
+              "example": "true"
+            }
+          }
+        },
+        "securitySchemes": {
+          "Bearer": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
         }
       }
     }
