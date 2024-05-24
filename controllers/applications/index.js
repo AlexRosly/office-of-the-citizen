@@ -7,6 +7,7 @@ const partIncome = require("./partIncome");
 const consularServicesAbroad = require("./consularServicesAbroad");
 const withdrawalFromCitizenship = require("./withdrawalFromCitizenship");
 const goAbroad = require("./goAbroad");
+const getAppStatistic = require("./getAppStatistic");
 
 module.exports = {
   houseConstruction,
@@ -18,4 +19,5 @@ module.exports = {
   consularServicesAbroad,
   withdrawalFromCitizenship,
   goAbroad,
+  getAppStatistic,
 };

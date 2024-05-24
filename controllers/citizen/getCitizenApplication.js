@@ -5,7 +5,7 @@ const getCitizenApplication = async (req, res) => {
 
   const result = await Apllication.find({ citizen: id });
 
-  if (!result) {
+  if (result.length === 0) {
     return res
       .status(436)
       .json({

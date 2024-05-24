@@ -1,15 +1,20 @@
 const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
 const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
+const { Apllication } = require("./models");
+
+const getAppStatistic = require("./controllers/applications/getAppStatistic");
 
 // Connection URL
 // const url = 'mongodb://localhost:27017';
 // const client = new MongoClient(url);
 // Database Name
-// const dbName = "Blog-YourPriceBooking";
+// const dbName = "Office-Of-The-Citizen";
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
@@ -20,9 +25,13 @@ const applicationRouter = require("./routes/application");
 
 const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: { origin: "*", methods: ["GET", "POST"] },
+});
 
 app.use(logger(formatsLogger));
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 app.use("/citizen", citizenRouter);
@@ -39,13 +48,36 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: err.message });
 });
 
+io.on("connection", async (socket) => {
+  //get amount connection established
+  socket.on("join", async () => {
+    const data = await getAppStatistic();
+    socket.emit("amount", { data });
+  });
+
+  //get amount after each update
+  socket.on("join", async () => {
+    await Apllication.watch().on("change", async (data) => {
+      if (data.operationType) {
+        const dataNew = await getAppStatistic();
+        // console.log({ dataNew });
+        socket.emit("amount", { data: { dataNew } });
+      }
+    });
+  });
+
+  io.on("Disconnect", () => {
+    console.log("Disconnect");
+  });
+});
+
 mongoose.set("strictQuery", false);
 
 mongoose
   .connect(DB_HOST)
   // .connect(DB_SERVER)
   .then(() =>
-    app.listen(APP_PORT, () => {
+    server.listen(APP_PORT, () => {
       console.log(
         `server is running in port ${APP_PORT} and Database connection successful`
       );
