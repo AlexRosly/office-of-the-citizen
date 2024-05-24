@@ -51,17 +51,17 @@ app.use((err, req, res, next) => {
 io.on("connection", async (socket) => {
   //get amount connection established
   socket.on("join", async () => {
-    const data = await getAppStatistic();
-    socket.emit("amount", { data });
+    const amount = await getAppStatistic();
+    socket.emit("amount", { amount });
   });
 
   //get amount after each update
   socket.on("join", async () => {
     await Apllication.watch().on("change", async (data) => {
       if (data.operationType) {
-        const dataNew = await getAppStatistic();
+        const amount = await getAppStatistic();
         // console.log({ dataNew });
-        socket.emit("amount", { data: { dataNew } });
+        socket.emit("amount", { amount });
       }
     });
   });
