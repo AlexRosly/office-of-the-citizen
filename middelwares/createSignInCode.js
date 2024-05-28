@@ -51,76 +51,60 @@ const createSingInCode = async (req, res) => {
     //           <p>Attention code valid only 3 minutes</p>
     //   </body>
     //   </html>`,
-    html: `
-    <!DOCTYPE html>
-    <html lang="uk">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    html: `<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>HTML Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600" rel="stylesheet" />
     <style>
         body {
-            display: flex;
-            max-width: 1200px;
-            margin: 0px auto;
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 100%;
         }
 
-        .content {
-            display: flex;
-            width: 90%;
-            height: 422px;
-            margin: 0 auto;
-            flex-direction: column;
-            align-items: center;
+        [style*="Raleway"] {
+            font-family: 'Raleway', arial, sans-serif !important;
         }
 
-        .cod_fild {
-            display: flex;
-            margin-top: 100px;
-            height: 204px;
-            flex-direction: column;
-            align-content: center;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
+        img {
+            outline: none;
+            text-decoration: none;
+            border: none;
+            -ms-interpolation-mode: bicubic;
+            max-width: 100% !important;
+            margin: 0;
+            padding: 0;
+            display: block;
         }
 
-        .cod {
-            font-family: Segoe UI;
-            font-size: 85px;
-            font-weight: 700;
-            line-height: 29.26px;
-            text-align: center;
-            color: #656363;
+        table td {
+            border-collapse: collapse;
         }
 
-        .link_fild {
-            display: flex;
-            flex-direction: row;
-            align-content: center;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-top: 20px;
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
         }
 
-        .h1 {
-            font-family: Segoe UI;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 29.26px;
-            text-align: center;
-            color: #656363;
+        .logo {
+            padding-right: 5px;
         }
 
-        .validonly {
-            font-family: Segoe UI;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 29.26px;
-            text-align: center;
-            color: #6db2fa;
+        a {
+            color: #6c6c6c;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.28px;
+            text-decoration: none;
         }
 
         .links {
@@ -140,99 +124,128 @@ const createSingInCode = async (req, res) => {
             text-decoration-color: #6db2fa;
         }
 
-        .logo {
-            width: 292px;
-            height: 52px;
-            display: flex;
-            flex-direction: row;
+        td {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .authorizationheder {
+            font-family: Segoe UI;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 29.26px;
+            text-align: center;
+            color: #6c6c6c;
 
         }
 
-        .logo_link {
-            height: 52px;
-            display: flex;
-            flex-direction: row;
-
+        .authorization {
+            font-family: Segoe UI;
+            font-size: 82px;
+            font-weight: 700;
+            line-height: 29.26px;
+            text-align: center;
+            color: #6c6c6c;
         }
 
-        .logo_flag1 {
-            width: 13px;
-            height: 26px;
-            border-radius: 5px 0px 0px 0px;
-            background: #0080ff;
-            margin-right: 5px;
-
-        }
-
-        .logo_flag2 {
-            width: 13px;
-            height: 26px;
-            background: #ffdd42;
-            border-radius: 0px 0px 0px 5px;
-
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .img1 {
-            width: 10%;
-        }
-
-        .img2 {
-            width: 50%;
-        }
-
-        @media (max-width: 550px) {
-            .link_fild {
-                flex-direction: column;
-            }
-
-            .logo {
-                width: 70%;
-            }
-
-            .content {
-                height: fit-content;
-            }
+        .authorizationtime {
+            font-family: Segoe UI;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 29.26px;
+            text-align: center;
+            color: #6db2fa;
         }
     </style>
 </head>
 
-<body>
-    <div class="content">
-        <div class="logo">
-            <a target="_blank" href="https://www.24serpnya.com.ua/">
-                <div>
-                    <div class="logo_flag1"></div>
-                    <div class="logo_flag2"></div>
-                </div>
-            </a>
-            <a target="_blank" href="https://www.24serpnya.com.ua/" target="_blank" class="logo_link"><img style="width: 100%;"
-                    src="./Кабінет Громадянина України.svg" alt=""></a>
-        </div>
-        <div class="cod_fild">
-            <div class="h1">
-                Перевірочний код
-            </div>
-            <div class="cod">${secretCode}</div>
-            <div class="validonly">
-                Перевірочний код діє 3 хвилини
-            </div>
-        </div>
-        <div class="link_fild">
-            <a class="links" target="_blank" href="https://www.support@24serpnya.com.ua">Підтримка користувачів</a>
-            <a class="links" target="_blank" href="https://www.youtube.com/@24serpnya">Ми на You Tube</a>
-            <a class="links" target="_blank" href="https://x.com/KabinetU60914">Ми в X</a>
-        </div>
-        <div class="link_fild">
-            <a class="links" target="_blank" href="https://www.instagram.com/kabinet_gromadyanina">Ми в Instagram</a>
-            <a class="links" target="_blank" href="https://tiktok.com/@kabinet_gromadyanina">Ми в Tik Tok</a>
-            <a class="links" target="_blank" href="https://t.me/kabinet_gromadyanina_Ukraini">Чат в telegram</a>
-        </div>
-    </div>
+<body style="margin: 0; padding: 0;">
+    <div style="font-size:0px;font-color:#ffffff;opacity:0;visibility:hidden;width:0;height:0;display:none;">Тестовое
+        письмо</div>
+    <table cellpadding="0" cellspacing="0" max-width="100%" bgcolor="#fbfbfb" align="center">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" max-width="547" height="422" align="center">
+                    <tr>
+                        <td height="20" max-width="547"></td>
+                    </tr>
+                    <tr>
+                        <td height="52" max-width="547">
+                            <table cellpadding="0" cellspacing="0" max-width="310" align="center">
+                                <tr>
+                                    <td class="logo" align="left" height="48" max-width="12">
+                                        <img src="https://i.ibb.co/rG1wSjv/logo2.jpg" alt="logo" />
+                                    </td>
+                                    <td class="logo" align="left" height="52" max-width="292">
+                                        <img src="https://i.ibb.co/D1wbPxH/logo1.jpg" alt="logo" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="189" max-width="407">
+                            <table cellpadding="0" cellspacing="0" height="189" max-width="407" align="center">
+                                <tr>
+                                    <td class="authorizationheder" align="center" height="48" max-width="12">
+                                        Перевірочний код
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="authorization" align="center" height="48" max-width="12">
+                                        ${secretCode}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="authorizationtime" align="center" height="48" max-width="12">
+                                        Перевірочний код діє 3 хвилини
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="130" max-width="407">
+                            <table cellpadding="0" cellspacing="0" max-width="407" align="center">
+                                <tr>
+                                    <td class="logo" align="center" height="48" max-width="12">
+                                        <a class="links" target="_blank"
+                                            href="https://www.support@24serpnya.com.ua">Підтримка користувачів</a>
+                                    </td>
+                                    <td class="logo" align="center" height="48" max-width="12">
+                                        <a class="links" target="_blank" href="https://www.youtube.com/@24serpnya">Ми на
+                                            You Tube</a>
+                                    </td>
+                                    <td class="logo" align="center" height="48" max-width="12">
+                                        <a class="links" target="_blank" href="https://x.com/KabinetU60914">Ми в X</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="logo" align="center" height="48" max-width="12">
+                                        <a class="links" target="_blank"
+                                            href="https://www.instagram.com/kabinet_gromadyanina">Ми в Instagram</a>
+                                    </td>
+                                    <td class="logo" align="center" height="48" max-width="12">
+                                        <a class="links" target="_blank"
+                                            href="https://tiktok.com/@kabinet_gromadyanina">Ми в Tik Tok</a>
+                                    </td>
+                                    <td class="logo" align="center" height="48" max-width="12">
+                                        <a class="links" target="_blank"
+                                            href="https://t.me/kabinet_gromadyanina_Ukraini">Чат в telegram</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="20" max-width="547"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
+</html>
 `,
   };
   transporter
