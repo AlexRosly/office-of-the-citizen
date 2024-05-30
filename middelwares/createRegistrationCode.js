@@ -174,7 +174,7 @@ const createRegistrationCode = async (req, res) => {
                                 </tr>
                                 <tr>
                                     <td class="authorization" align="center" height="48" max-width="12">
-                                        7856
+                                        ${secretCode}
                                     </td>
                                 </tr>
                                 <tr>
