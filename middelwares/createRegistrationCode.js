@@ -29,13 +29,14 @@ const createRegistrationCode = async (req, res) => {
     to: email,
     subject: "Confirmation code",
     text: "Office of the Citizen confirmation code",
-    html: `<!DOCTYPE html
+    html: `
+    <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600" rel="stylesheet" />
+    <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="uk">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600" rel="stylesheet">
     <style>
         body {
             width: 100% !important;
@@ -49,7 +50,6 @@ const createRegistrationCode = async (req, res) => {
         [style*="Raleway"] {
             font-family: 'Raleway', arial, sans-serif !important;
         }
-
         img {
             outline: none;
             text-decoration: none;
@@ -60,161 +60,201 @@ const createRegistrationCode = async (req, res) => {
             padding: 0;
             display: block;
         }
-
         table td {
             border-collapse: collapse;
         }
-
         table {
             border-collapse: collapse;
             margin: auto;
         }
-
-        .logo {
-            padding-right: 5px;
-        }
-
-        a {
-            color: #6c6c6c;
-            font-size: 14px;
-            font-weight: 400;
+       a {
+            text-decoration: none;
             letter-spacing: 0.28px;
-            text-decoration: none;
-        }
-
-        .links {
-            text-decoration: none;
             color: #4C4C4C;
-            font-family: e-Ukraine;
             font-size: 12px;
             font-weight: 400;
+            font-family: e-Ukraine;
             line-height: 14.39px;
             text-align: center;
             padding-left: 5px;
-            padding-right: 5px;
+            padding-right: 5px
         }
 
-        .links:hover {
-            text-decoration: underline 2px;
-            text-decoration-color: #6db2fa;
-        }
-
-        td {
-            padding-top: 0px;
-            padding-bottom: 0px;
+        .linc {
+            color: #4C4C4C;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.28px;
+            text-decoration: none;
+            font-family: e-Ukraine;
+            line-height: 14.39px;
             text-align: center;
-        }
-
-        .contr {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: nowrap;
-        }
-
-        .authorizationheder {
-            font-family: Segoe UI;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 29.26px;
-            text-align: center;
-            color: #6c6c6c;
-
-        }
-
-        .authorization {
-            font-family: Segoe UI;
-            font-size: 82px;
-            font-weight: 700;
-            line-height: 29.26px;
-            text-align: center;
-            color: #6c6c6c;
-        }
-
-        .authorizationtime {
-            font-family: Segoe UI;
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 29.26px;
-            text-align: center;
-            color: #6db2fa;
+            padding-left: 5px;
+            padding-right: 5px
         }
     </style>
 </head>
-<body style="margin: 0; padding: 0;">
-    <table cellpadding="0" cellspacing="0" max-width="100%" bgcolor="#fbfbfb" align="center">
+
+<body
+    style="width:100% !important;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin:0;padding:0;line-height:82px">
+    <table cellpadding="0" cellspacing="0" max-width="100%" bgcolor="#fbfbfb" align="center" role="presentation"
+        style="border-collapse:collapse;margin:auto">
         <tr>
-            <td>
-                <table cellpadding="0" cellspacing="0" max-width="547" height="422" align="center">
+            <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center">
+                <table cellpadding="0" cellspacing="0" max-width="547" height="422" align="center" role="presentation"
+                    style="border-collapse:collapse;margin:auto">
                     <tr>
-                        <td height="20" max-width="547"></td>
+                        <td height="20" max-width="547"
+                            style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center"></td>
                     </tr>
                     <tr>
-                        <td height="52" max-width="547">
-                            <table cellpadding="0" cellspacing="0" max-width="310" align="center">
+                        <td height="52" max-width="547"
+                            style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center">
+                            <table cellpadding="0" cellspacing="0" max-width="310" align="center" role="presentation"
+                                style="border-collapse:collapse;margin:auto">
                                 <tr>
-                                    <td class="logo" align="center" height="48" max-width="12">
-                                        <img src="https://i.ibb.co/rG1wSjv/logo2.jpg" alt="logo" />
+                                    <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" height="48" max-width="fit-content"><img
+                                            src="https://i.ibb.co/rG1wSjv/logo2.jpg" alt="logo"
+                                            style="outline:none;text-decoration:none;border:none;-ms-interpolation-mode:bicubic;max-width:100% !important;margin:0;padding:0;display:block">
                                     </td>
-                                    <td class="logo" align="center" height="52" max-width="292">
-                                        <img src="https://i.ibb.co/D1wbPxH/logo1.jpg" alt="logo" />
+                                    <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" height="52" max-width="292"><img
+                                            src="https://i.ibb.co/D1wbPxH/logo1.jpg" alt="logo"
+                                            style="outline:none;text-decoration:none;border:none;-ms-interpolation-mode:bicubic;max-width:100% !important;margin:0;padding:0;display:block">
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td height="189" max-width="407">
-                            <table cellpadding="0" cellspacing="0" height="189" max-width="407" align="center">
+                        <td height="189" max-width="407"
+                            style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center">
+                            <table cellpadding="0" cellspacing="0" height="189" max-width="407" align="center"
+                                role="presentation" style="border-collapse:collapse;margin:auto">
                                 <tr>
-                                    <td class="authorizationheder" align="center" height="48" max-width="12">
-                                        Перевірочний код
-                                    </td>
+                                    <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;font-family:'Segoe UI';font-size:22px;font-weight:700;line-height:29.26px;color:#6c6c6c"
+                                        align="center" height="48" max-width="fit-content">Перевірочний код</td>
                                 </tr>
                                 <tr>
-                                    <td class="authorization" align="center" height="48" max-width="12">
-                                        ${secretCode}
-                                    </td>
+                                    <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;font-family:'Segoe UI';font-size:82px;font-weight:700;line-height:29.26px;color:#6c6c6c"
+                                        align="center" height="48" max-width="fit-content">${secretCode}</td>
                                 </tr>
                                 <tr>
-                                    <td class="authorizationtime" align="center" height="48" max-width="12">
-                                        Перевірочний код діє 3 хвилини
-                                    </td>
+                                    <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;font-family:'Segoe UI';font-size:22px;font-weight:700;line-height:29.26px;color:#6db2fa"
+                                        align="center" height="48" max-width="fit-content">Перевірочний код діє 3
+                                        хвилини</td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td height="130" max-width="407">
-                            <table class="contr" cellpadding="0" cellspacing="0" max-width="407" text-align="center">
-                                <tr class="contr">
-                                    <td class="links logo" align="center" height="48" max-width="12">
+                        <td height="130" max-width="407"
+                            style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center">
+                            <table
+                                style="border-collapse:collapse;margin:auto;display:flex;flex-direction:row;justify-content:center;align-items:center;flex-wrap:nowrap"
+                                cellpadding="0" cellspacing="0" max-width="407" text-align="center" role="presentation">
+                                <tr
+                                    style="display:flex;  flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+                                    <td style="
+                                        display: block;
+                                        max-width: fit-content;
+                                        font-size: 12px;
+                                        color: #4C4C4C;
+                                        font-weight: 400;
+                                        letter-spacing: 0.28px;
+                                        font-family: e-Ukraine;
+                                        text-align: center;
+                                        padding-right: 5px">
                                         Підтримка користувачів
                                     </td>
-                                    <td class="links logo" align="center" height="48" max-width="12">
+                                    <td style="
+                                        display: block;
+                                        max-width: fit-content;
+                                        font-size: 12px;
+                                        color: #4C4C4C;
+                                        font-weight: 400;
+                                        letter-spacing: 0.28px;
+                                        font-family: e-Ukraine;
+                                        text-align: center;
+                                        padding-right: 5px">
                                         support@24serpnya.com.ua
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td class="logo" align="center" height="48" max-width="12">
-                                        <a class="links" target="_blank" href="https://www.youtube.com/@24serpnya">Ми на
-                                            You Tube</a>
+                                <tr
+                                    style="display:flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+                                    <td style="height: 20px;border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" max-width="fit-content"><a style="
+                                        display: block;
+                                        text-decoration: none;
+                                        letter-spacing: 0.28px;
+                                        color: #4C4C4C;
+                                        font-size: 12px;
+                                        font-weight: 400;
+                                        font-family: e-Ukraine;
+                                        line-height: 14.39px;
+                                        text-align: center;
+                                        padding-left: 5px;
+                                        padding-right: 5px" target="_blank"
+                                            href="https://www.youtube.com/@24serpnya">Ми на You Tube</a>
                                     </td>
-                                    <td class="logo" align="center" height="48" max-width="12">
-                                        <a class="links" target="_blank" href="https://x.com/KabinetU60914">Ми в X</a>
-                                    </td>
-                                    <td class="logo" align="center" height="48" max-width="12">
-                                        <a class="links" target="_blank"
+                                    <td style="height: 20px;border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" max-width="fit-content"><a style="
+                                        display: block;
+                                        text-decoration: none;
+                                        letter-spacing: 0.28px;
+                                        color: #4C4C4C;
+                                        font-size: 12px;
+                                        font-weight: 400;
+                                        font-family: e-Ukraine;
+                                        line-height: 14.39px;
+                                        text-align: center;
+                                        padding-left: 5px;
+                                        padding-right: 5px" target="_blank" href="https://x.com/KabinetU60914">Ми в
+                                            X</a></td>
+                                    <td style="height: 20px;border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" max-width="fit-content"><a style="
+                                        display: block;
+                                        text-decoration: none;
+                                        letter-spacing: 0.28px;
+                                        color: #4C4C4C;
+                                        font-size: 12px;
+                                        font-weight: 400;
+                                        font-family: e-Ukraine;
+                                        line-height: 14.39px;
+                                        text-align: center;
+                                        padding-left: 5px;
+                                        padding-right: 5px" target="_blank"
                                             href="https://www.instagram.com/kabinet_gromadyanina">Ми в Instagram</a>
                                     </td>
-                                    <td class="logo" align="center" height="48" max-width="12">
-                                        <a class="links" target="_blank"
-                                            href="https://tiktok.com/@kabinet_gromadyanina">Ми в Tik Tok</a>
-                                    </td>
-                                    <td class="logo" align="center" height="48" max-width="12">
-                                        <a class="links" target="_blank"
+                                    <td style="height: 20px;border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" max-width="fit-content"><a style="
+                                        display: block;
+                                        text-decoration: none;
+                                        letter-spacing: 0.28px;
+                                        color: #4C4C4C;
+                                        font-size: 12px;
+                                        font-weight: 400;
+                                        font-family: e-Ukraine;
+                                        line-height: 14.39px;
+                                        text-align: center;
+                                        padding-left: 5px;
+                                        padding-right: 5px" target="_blank"
+                                            href="https://tiktok.com/@kabinet_gromadyanina">Ми в Tik Tok</a></td>
+                                    <td style="height: 20px;border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
+                                        align="center" max-width="fit-content">
+                                        <a style="
+                                        display: block;
+                                        text-decoration: none;
+                                        letter-spacing: 0.28px;
+                                        color: #4C4C4C;
+                                        font-size: 12px;
+                                        font-weight: 400;
+                                        font-family: e-Ukraine;
+                                        line-height: 14.39px;
+                                        text-align: center;
+                                        padding-left: 5px;
+                                        padding-right: 5px" target="_blank"
                                             href="https://t.me/kabinet_gromadyanina_Ukraini">Чат в telegram</a>
                                     </td>
                                 </tr>
@@ -222,14 +262,16 @@ const createRegistrationCode = async (req, res) => {
                         </td>
                     </tr>
                     <tr>
-                        <td height="20" max-width="547"></td>
+                        <td height="20" max-width="547"
+                            style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center"></td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
 </body>
-</html>`,
+</html>
+      `,
   };
   const findCandidate = await Candidate.find({ email });
 
