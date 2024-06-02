@@ -271,7 +271,7 @@ const createRegistrationCode = async (req, res) => {
     </table>
 </body>
 </html>
-      `,
+    `,
   };
   const findCandidate = await Candidate.find({ email });
 
