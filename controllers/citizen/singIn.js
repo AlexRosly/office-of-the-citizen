@@ -47,6 +47,51 @@ const signIn = async (req, res) => {
       })
       .end();
   }
+  //if user user other divice
+  if (citizen.token !== null) {
+    try {
+      jwt.verify(citizen.token, SECRET_KEY);
+      return res
+        .json({
+          status: "success",
+          code: 200,
+          result: {
+            firstName: citizen.firstName,
+            lastName: citizen.lastName,
+            middleName: citizen.middleName,
+            email: citizen.email,
+            status: citizen.status,
+            token: citizen.token,
+          },
+        })
+        .end();
+    } catch (error) {
+      const payload = {
+        id,
+      };
+      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "365d" });
+      const result = await Citizen.findByIdAndUpdate(
+        id,
+        { token },
+        { new: true }
+      );
+      // if all ok return response
+      return res
+        .json({
+          status: "success",
+          code: 200,
+          result: {
+            firstName: result.firstName,
+            lastName: result.lastName,
+            middleName: result.middleName,
+            email: result.email,
+            status: result.status,
+            token: result.token,
+          },
+        })
+        .end();
+    }
+  }
   //create token and write in DB
   const payload = {
     id,

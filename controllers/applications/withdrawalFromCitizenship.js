@@ -1,12 +1,16 @@
 const { Apllication } = require("../../models");
 const { checkApplication } = require("../../middelwares");
+const { io } = require("../../socket/socket");
+const getAppStatistic = require("./getAppStatistic");
 
 const withdrawalFromCitizenship = async (req, res) => {
-  const { fixed, state } = req.body;
+  const { fixed } = req.body;
   //get id from citizen token
   const { id } = req.citizen;
   //check DB to earli citizen app
   const checkCitizenApp = await checkApplication(id);
+  //variables for send amount applications by socket
+  let amount;
   //if DB has citizes app update
   if (checkCitizenApp.length > 0) {
     const { _id } = checkCitizenApp[0];
@@ -26,6 +30,9 @@ const withdrawalFromCitizenship = async (req, res) => {
         })
         .end();
     }
+    //get amount and send
+    amount = await getAppStatistic();
+    io.emit("amount", { amount });
     res
       .json({
         status: "success",
@@ -50,6 +57,9 @@ const withdrawalFromCitizenship = async (req, res) => {
         })
         .end();
     }
+    //get amount and send
+    amount = await getAppStatistic();
+    io.emit("amount", { amount });
     res
       .json({
         status: "success",

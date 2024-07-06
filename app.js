@@ -1,14 +1,9 @@
 const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
 const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-const { Apllication } = require("./models");
-
-const getAppStatistic = require("./controllers/applications/getAppStatistic");
 
 // Connection URL
 // const url = 'mongodb://localhost:27017';
@@ -19,17 +14,22 @@ const getAppStatistic = require("./controllers/applications/getAppStatistic");
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
-const { DB_HOST, DB_SERVER, APP_PORT = 4700 } = process.env;
+const { DB_HOST, DB_SERVER, APP_PORT = 8080 } = process.env;
 
 const citizenRouter = require("./routes/citizen");
 const applicationRouter = require("./routes/application");
 
-const app = express();
+// const app = express();
+const { app, server } = require("./socket/socket");
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: { origin: "*", methods: ["GET", "POST"] },
-});
+// const server = http.createServer(app);
+// const io = new Server(server, {
+//   // path: "/socketio",
+//   wssEngine: ["ws", "wss"],
+//   transports: ["websocket", "polling"],
+//   cors: { origin: "*", methods: ["GET", "POST"] },
+//   allowEIO3: true,
+// });
 
 app.use(logger(formatsLogger));
 app.use(cors({ origin: "*" }));
@@ -49,28 +49,36 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: err.message });
 });
 
-io.on("connection", async (socket) => {
-  //get amount connection established
-  socket.on("join", async () => {
-    const amount = await getAppStatistic();
-    socket.emit("amount", { amount });
-  });
+// const users = [];
 
-  //get amount after each update
-  socket.on("join", async () => {
-    await Apllication.watch().on("change", async (data) => {
-      if (data.operationType) {
-        const amount = await getAppStatistic();
-        // console.log({ dataNew });
-        socket.emit("amount", { amount });
-      }
-    });
-  });
+// const deleteUser = (id) => {
+//   const findIndex = users.findIndex((u) => u === id);
+//   users.splice(findIndex, 1);
+// };
 
-  io.on("Disconnect", () => {
-    console.log("Disconnect");
-  });
-});
+// io.on("connection", (socket) => {
+//   users.push(socket.id);
+//   //get amount connection established
+//   socket.on("join", async () => {
+//     const amount = await getAppStatistic();
+//     socket.emit("amount", { amount });
+//   });
+
+//   //get amount after each update
+//   // socket.on("join", async () => {
+//   //   await Apllication.watch().on("change", async (data) => {
+//   //     if (data.operationType) {
+//   //       const amount = await getAppStatistic();
+//   //       // console.log({ dataNew });
+//   //       socket.emit("amount", { amount });
+//   //     }
+//   //   });
+//   // });
+
+//   socket.on("disconnect", () => {
+//     deleteUser(socket.id);
+//   });
+// });
 
 mongoose.set("strictQuery", false);
 
