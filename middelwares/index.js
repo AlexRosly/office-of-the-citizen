@@ -4,7 +4,7 @@ const createRegistrationCode = require("./createRegistrationCode");
 const createSingInCode = require("./createSignInCode");
 const authCitizen = require("./authCitizen");
 const checkApplication = require("./checkApplication");
-// const upload = require("./upload");
+const upload = require("./upload");
 
 module.exports = {
   validation,
@@ -13,5 +13,5 @@ module.exports = {
   createSingInCode,
   authCitizen,
   checkApplication,
-  // upload,
+  upload,
 };

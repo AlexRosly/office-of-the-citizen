@@ -7,10 +7,10 @@ const getCitizenApplication = async (req, res) => {
 
   if (result.length === 0) {
     return res
-      .status(436)
+      .status(204)
       .json({
         status: "error",
-        code: 436,
+        code: 204,
         message: `citizen doesn't has any applications`,
       })
       .end();

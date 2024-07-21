@@ -1,4 +1,4 @@
-const { Apllication } = require("../../models");
+const { Apllication, Voising } = require("../../models");
 
 const getAppStatistic = async () => {
   const houseConstruction = await Apllication.find({
@@ -28,6 +28,9 @@ const getAppStatistic = async () => {
   const goAbroad = await Apllication.find({
     "goAbroad.fixed": true,
   }).count();
+
+  const vote = await Voising.find();
+
   let result = {
     houseConstruction,
     cottageConstruction,
@@ -38,6 +41,7 @@ const getAppStatistic = async () => {
     consularServicesAbroad,
     withdrawalFromCitizenship,
     goAbroad,
+    // vote,
   };
 
   return result;

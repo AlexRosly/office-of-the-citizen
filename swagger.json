@@ -621,6 +621,43 @@
           }
         }
       }
+    },
+    "/elections/add-candidate": {
+      "post": {
+        "tags": ["Elections"],
+        "summary": "add new candidate",
+        "requestBody": {
+          "description": "create new candidate",
+          "required": "true",
+          "content": {
+            "applcation/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNewCandidateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "applcation/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateNewCitizenResponse"
+                }
+              }
+            }
+          },
+          "435": {
+            "description": "secret code is wrong",
+            "content": {}
+          },
+          "436": {
+            "description": "secret code is invalid",
+            "content": {}
+          }
+        }
+      }
     }
   },
   "components": {
