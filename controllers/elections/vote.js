@@ -18,35 +18,68 @@ const vote = async (req, res) => {
       citizen: id,
       candidate: candidateId,
     });
-    //if citizen vot write in DB, return response
+    //if citizen vote write in DB, return response
     if (createVoise) {
       //find amount voited
-      const allVoice = await Voising.find();
-      const amountCitizenVoice = allVoice.length;
-      //find candidate
-      const [voice] = await PresidentСandidates.find({
-        _id: candidateId,
-      });
-      //get amount of voice
-      const amountVoice = Number(voice.voice + 1);
-      //find percent of voited
-      const getPersent = ((amountVoice / amountCitizenVoice) * 100).toFixed(2);
-      //update amount of voice and percent
-      const result = await PresidentСandidates.findByIdAndUpdate(
-        { _id: candidateId },
-        { voice: amountVoice, percent: getPersent },
-        { new: true }
-      );
-      //response
-      return res
-        .status(201)
-        .json({
-          code: 201,
-          status: "success",
-          result,
-          totalVoice: amountCitizenVoice,
-        })
-        .end();
+      const amountCitizenVoice = await Voising.find().count();
+      //find all candidate
+      const allCandidate = await PresidentСandidates.find();
+      //find choising candidate and update
+      const findCandidate = allCandidate.find((el) => el.id === candidateId);
+      if (findCandidate) {
+        //get amount of voice
+        const amountVoice = Number(findCandidate.voice + 1);
+        //find percent of voited
+        const getPersent = ((amountVoice / amountCitizenVoice) * 100).toFixed(
+          2
+        );
+        //update candidate data
+        await PresidentСandidates.findByIdAndUpdate(
+          { _id: candidateId },
+          { voice: amountVoice, percent: getPersent },
+          { new: true }
+        );
+      }
+      // response
+      const response = async () => {
+        const result = await PresidentСandidates.find();
+        return res
+          .status(201)
+          .json({
+            code: 201,
+            status: "success",
+            result,
+            totalVoice: amountCitizenVoice,
+          })
+          .end();
+      };
+
+      const updateOtherCandidates = (
+        allCandidate,
+        candidateId,
+        amountCitizenVoice
+      ) => {
+        allCandidate.forEach(async (el) => {
+          if (el.id !== candidateId) {
+            const getPersent = ((el.voice / amountCitizenVoice) * 100).toFixed(
+              2
+            );
+            await PresidentСandidates.findByIdAndUpdate(
+              { _id: el.id },
+              {
+                percent: getPersent,
+              },
+              { new: true }
+            );
+          }
+        });
+        //set timeout for call response
+        setTimeout(() => {
+          response();
+        }, 1500);
+      };
+      //call function for update other candidate
+      updateOtherCandidates(allCandidate, candidateId, amountCitizenVoice);
     }
   } catch (error) {
     console.log("Errror in vote controller:", error.message);
