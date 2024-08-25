@@ -19,6 +19,7 @@ const { DB_HOST, DB_SERVER, APP_PORT = 8080 } = process.env;
 const citizenRouter = require("./routes/citizen");
 const applicationRouter = require("./routes/application");
 const electionsRouter = require("./routes/elections");
+const corruptionRouter = require("./routes/corruptions.js");
 
 // const app = express();
 const { app, server } = require("./socket/socket");
@@ -39,6 +40,7 @@ app.use(express.json());
 app.use("/citizen", citizenRouter);
 app.use("/application", applicationRouter);
 app.use("/elections", electionsRouter);
+app.use("/corruption", corruptionRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

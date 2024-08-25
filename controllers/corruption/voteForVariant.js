@@ -1,11 +1,12 @@
-const { PresidentСandidates, Voising } = require("../../models");
+const { CorruptionVariants, CorruptionVoising } = require("../../models");
 
-const vote = async (req, res) => {
+const voteForVariant = async (req, res) => {
   const { id } = req.citizen; // get citizen id
-  const { candidateId } = req.query; // get candidate id for vote
+  const { variantId } = req.query; // get candidate id for vote
+
   try {
     //check citizen for vote
-    const checkVoise = await Voising.find({ citizen: id });
+    const checkVoise = await CorruptionVoising.find({ citizen: id });
     //if citizen already vote, return response
     if (checkVoise.length > 0) {
       return res
@@ -14,36 +15,35 @@ const vote = async (req, res) => {
         .end();
     }
     //write citizen vote in DB
-    const createVoise = await Voising.create({
+    const createVoise = await CorruptionVoising.create({
       citizen: id,
-      candidate: candidateId,
+      variant: variantId,
     });
     //if citizen vote write in DB, return response
     if (createVoise) {
       //find amount voited
-      const amountCitizenVoice = await Voising.find().count();
+      const amountCitizenVoice = await CorruptionVoising.find().count();
       //find all candidate
-      const allCandidate = await PresidentСandidates.find();
+      const allVariant = await CorruptionVariants.find();
       //find choising candidate and update
-      const findCandidate = allCandidate.find((el) => el.id === candidateId);
+      const findCandidate = allVariant.find((el) => el.id === variantId);
       if (findCandidate) {
         //get amount of voice
         const amountVoice = findCandidate.voice + 1;
-        console.log({ amountVoice });
         //find percent of voited
         const getPersent = ((amountVoice / amountCitizenVoice) * 100).toFixed(
           2
         );
         //update candidate data
-        await PresidentСandidates.findByIdAndUpdate(
-          { _id: candidateId },
+        await CorruptionVariants.findByIdAndUpdate(
+          { _id: variantId },
           { voice: amountVoice, percent: getPersent },
           { new: true }
         );
       }
       // response
       const response = async () => {
-        const result = await PresidentСandidates.find();
+        const result = await CorruptionVariants.find();
         return res
           .status(201)
           .json({
@@ -56,16 +56,16 @@ const vote = async (req, res) => {
       };
 
       const updateOtherCandidates = (
-        allCandidate,
-        candidateId,
+        allVariant,
+        variantId,
         amountCitizenVoice
       ) => {
-        allCandidate.forEach(async (el) => {
-          if (el.id !== candidateId) {
+        allVariant.forEach(async (el) => {
+          if (el.id !== variantId) {
             const getPersent = ((el.voice / amountCitizenVoice) * 100).toFixed(
               2
             );
-            await PresidentСandidates.findByIdAndUpdate(
+            await CorruptionVariants.findByIdAndUpdate(
               { _id: el.id },
               {
                 percent: getPersent,
@@ -80,12 +80,12 @@ const vote = async (req, res) => {
         }, 1500);
       };
       //call function for update other candidate
-      updateOtherCandidates(allCandidate, candidateId, amountCitizenVoice);
+      updateOtherCandidates(allVariant, variantId, amountCitizenVoice);
     }
   } catch (error) {
-    console.log("Errror in vote controller:", error.message);
+    console.log("Errror in voteForVariant controller:", error.message);
     res.status(500).json({ error: "internal server error" }).end();
   }
 };
 
-module.exports = vote;
+module.exports = voteForVariant;

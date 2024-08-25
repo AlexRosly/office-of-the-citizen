@@ -3,6 +3,8 @@ const Candidate = require("./candidate");
 const Apllication = require("./application");
 const PresidentСandidates = require("./presidentСandidates");
 const Voising = require("./voising");
+const CorruptionVariants = require("./corruptionVariants");
+const CorruptionVoising = require("./corruptionVoising");
 
 module.exports = {
   Citizen,
@@ -10,4 +12,6 @@ module.exports = {
   Apllication,
   PresidentСandidates,
   Voising,
+  CorruptionVariants,
+  CorruptionVoising,
 };

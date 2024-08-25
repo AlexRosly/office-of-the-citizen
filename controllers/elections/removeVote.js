@@ -39,7 +39,7 @@ const removeVote = async (req, res) => {
     const findCandidate = allCandidate.find((el) => el.id === candidateId);
     if (findCandidate) {
       //get amount of voice
-      const amountVoice = Number(findCandidate.voice - 1);
+      const amountVoice = findCandidate.voice - 1;
 
       //find percent of voited
       const getPersent = ((amountVoice / amountCitizenVoice) * 100).toFixed(2);
