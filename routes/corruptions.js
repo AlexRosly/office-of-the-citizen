@@ -13,7 +13,7 @@ router.post("/vote-for-variant", authCitizen, ctrlWrapper(ctrl.voteForVariant));
 
 router.delete(
   "/remove-vote-for-variant",
-  // authCitizen,
+  authCitizen,
   ctrlWrapper(ctrl.removeVoteForVariant)
 );
 
