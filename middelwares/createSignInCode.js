@@ -128,12 +128,12 @@ const createSingInCode = async (req, res) => {
                                 <tr>
                                     <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
                                         align="center" height="48" max-width="fit-content"><img
-                                            src="https://i.ibb.co/rG1wSjv/logo2.jpg" alt="logo"
+                                            src="https://res.cloudinary.com/your-price-booking/image/upload/v1739181669/logo%20for%20email/oftc-flag_at2khu.png" alt="logo"
                                             style="outline:none;text-decoration:none;border:none;-ms-interpolation-mode:bicubic;max-width:100% !important;margin:0;padding:0;display:block">
                                     </td>
                                     <td style="border-collapse:collapse;padding-top:0px;padding-bottom:0px;text-align:center;padding-right:5px"
                                         align="center" height="52" max-width="292"><img
-                                            src="https://i.ibb.co/D1wbPxH/logo1.jpg" alt="logo"
+                                            src="https://res.cloudinary.com/your-price-booking/image/upload/v1739181669/logo%20for%20email/oftc-text_auynfq.png" alt="logo"
                                             style="outline:none;text-decoration:none;border:none;-ms-interpolation-mode:bicubic;max-width:100% !important;margin:0;padding:0;display:block">
                                     </td>
                                 </tr>
